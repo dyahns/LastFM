@@ -1,7 +1,7 @@
 ## LastFM Browser Demo
 
 - The app retrieves the list of top artists from LastFM. 
-- Selecting an artist displays the list of similar artists.
+- Selecting an artist from the list displays a new list of similar artists. 
 
 To run the app you will need to provide a LastFM API key in Settings -> LastFM. Naturally, API key is not required to run unit tests as they rely on mocks.
 
@@ -24,3 +24,9 @@ Here is how it works.
 - **Presenter** only holds a weak reference to the **View**. It translates the **Model** to **View Model** and passes it onto the **View**.
 - **Router** knows the concrete type the next scene will be built off, but relies on abstraction to delegate creation of the new scene to the **composition root**. **Router** only holds a weak reference to the **View** to trigger UIKit navigation events. 
 
+### Service layer
+
+The app pulls data from two sources/services: via LastFM API and from a local cache. 
+- On successful API request the service updates the cache and the UI. 
+- If data from the server comes in first, the cache response is ignored. 
+- If API request fails, the cached data will be displayed if already present in the cache.
