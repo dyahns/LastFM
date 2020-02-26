@@ -17,6 +17,12 @@ extension LastFmCache: ServiceProtocol {
             completion(result)
         }
     }
+    
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        FileManager.default.readFromCache(with: url.base64) { (result) in
+            completion(result)
+        }
+    }
 }
 
 extension LastFmCache: CacheWriter {
@@ -27,17 +33,14 @@ extension LastFmCache: CacheWriter {
     func cache<R: MbIdentity, T: Encodable>(similarArtists: T, to request: R) {
         FileManager.default.cache(data: similarArtists, with: request.similarCacheKey)
     }
+    
+    func cache(data: Data, to url: String) {
+        FileManager.default.cache(data: data, with: url.base64)
+    }
 }
 
 extension MbIdentity {
     var similarCacheKey: String {
         "\(LastFmCache.similarArtistsKey)\(self.name)".base64
-    }
-}
-
-extension String {
-    var base64: String {
-        let data = self.data(using: String.Encoding.utf8)
-        return data!.base64EncodedString(options: [])
     }
 }

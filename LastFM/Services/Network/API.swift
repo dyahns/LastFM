@@ -54,6 +54,31 @@ struct API {
         
         task.resume()
     }
+    
+    func load(from urlString: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            assertionFailure("Invalid url: \(urlString)")
+            return
+        }
+        
+        let urlRequest = URLRequest(url: url)
+        
+        print("Sending request: \(url)")
+        let task = urlSession.resumableDataTask(with: urlRequest, completionHandler: { data, _, error in
+            if let error = error {
+                completion(.failure(HTTPError.requestError(error)))
+                return
+            }
+            guard let data = data else {
+                assertionFailure("Data is missing in the response")
+                return
+            }
+            
+            completion(.success(data))
+        })
+        
+        task.resume()
+    }
 }
 
 // MARK: - Resumable

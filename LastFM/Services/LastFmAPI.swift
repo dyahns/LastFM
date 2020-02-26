@@ -29,6 +29,12 @@ struct LastFmAPI: ServiceProtocol {
         })
     }
     
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        api.load(from: url, completion: { (result) in
+            completion(result)
+        })
+    }
+    
     static var lastFmApiKey: String {
         guard let apiKey = UserDefaults.standard.string(forKey: self.apiKeySettingKey), !apiKey.trimmingCharacters(in: .whitespaces).isEmpty else {
             return ""

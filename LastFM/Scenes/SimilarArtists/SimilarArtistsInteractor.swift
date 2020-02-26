@@ -13,8 +13,19 @@ struct SimilarArtistsInteractor: SimilarArtistsInteractionProtocol {
     }
     
     func fetchArtists() {
-        service.fetchSimilarArtists(request: request) { (result) in
-            self.presenter.presentFetchedArtists(for: result)
+        DispatchQueue.global().async {
+            self.service.fetchSimilarArtists(request: self.request) { (result) in
+                self.presenter.presentFetchedArtists(for: result)
+            }
         }
+    }
+
+    func fetchImage(from url: String, for index: Int) {
+        DispatchQueue.global().async {
+            self.service.fetchData(url: url) { (result) in
+                self.presenter.presentFetched(data: result, for: index)
+            }
+        }
+
     }
 }

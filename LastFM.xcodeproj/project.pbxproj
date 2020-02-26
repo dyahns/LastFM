@@ -39,6 +39,7 @@
 		8EAFB88C238E1928008CC3A2 /* FileManagerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAFB88B238E1928008CC3A2 /* FileManagerExtensions.swift */; };
 		8EAFB88E238ECEC8008CC3A2 /* CacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAFB88D238ECEC8008CC3A2 /* CacheError.swift */; };
 		8EC150B823A3921500E466EB /* DisplayProtocolExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC150B723A3921500E466EB /* DisplayProtocolExtensions.swift */; };
+		8ED35DEC2406D1F50053A5F0 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED35DEB2406D1F50053A5F0 /* StringExtensions.swift */; };
 		8ED482E1238F376E00A9457A /* ServiceSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED482E0238F376E00A9457A /* ServiceSemaphore.swift */; };
 		8ED482E323903B5F00A9457A /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED482E223903B5F00A9457A /* APITests.swift */; };
 		8ED482E623903BC600A9457A /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED482E523903BC600A9457A /* MockURLSession.swift */; };
@@ -113,6 +114,7 @@
 		8EAFB88D238ECEC8008CC3A2 /* CacheError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheError.swift; sourceTree = "<group>"; };
 		8EC150B623A3917B00E466EB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8EC150B723A3921500E466EB /* DisplayProtocolExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayProtocolExtensions.swift; sourceTree = "<group>"; };
+		8ED35DEB2406D1F50053A5F0 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		8ED482E0238F376E00A9457A /* ServiceSemaphore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSemaphore.swift; sourceTree = "<group>"; };
 		8ED482E223903B5F00A9457A /* APITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
 		8ED482E523903BC600A9457A /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		8E54641C238695AA0017C486 /* LastFM */ = {
 			isa = PBXGroup;
 			children = (
+				8ED35DE82406B81B0053A5F0 /* Helpers */,
 				8E5464692389906D0017C486 /* Services */,
 				8E5464482386DF800017C486 /* Common */,
 				8E54644523869A390017C486 /* Entities */,
@@ -291,6 +294,14 @@
 				8EAFB88D238ECEC8008CC3A2 /* CacheError.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		8ED35DE82406B81B0053A5F0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8ED35DEB2406D1F50053A5F0 /* StringExtensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		8ED482E423903BA600A9457A /* Mocks */ = {
@@ -447,6 +458,7 @@
 				8E54644723869A4B0017C486 /* Artist.swift in Sources */,
 				8E54645623876ADD0017C486 /* TopArtistsRouter.swift in Sources */,
 				8E54645D238830940017C486 /* SimilarArtistsScene.swift in Sources */,
+				8ED35DEC2406D1F50053A5F0 /* StringExtensions.swift in Sources */,
 				8E54647323899D360017C486 /* Endpoint.swift in Sources */,
 				8EAFB88C238E1928008CC3A2 /* FileManagerExtensions.swift in Sources */,
 				8E54645023875FAE0017C486 /* TopArtistsViewController.swift in Sources */,

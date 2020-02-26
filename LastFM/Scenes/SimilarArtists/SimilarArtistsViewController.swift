@@ -6,7 +6,6 @@ class SimilarArtistsViewController: UITableViewController {
     
     private var viewModel: SimilarArtistsScene.ViewModel? {
         didSet {
-            tableView.reloadData()
             title = viewModel?.artistName
         }
     }
@@ -30,6 +29,8 @@ class SimilarArtistsViewController: UITableViewController {
             return cell
         }
         cell.textLabel?.text = artist.name
+        cell.detailTextLabel?.text = artist.mbid
+        cell.imageView?.image = artist.image
 
         return cell
     }
@@ -44,6 +45,16 @@ class SimilarArtistsViewController: UITableViewController {
         router.showSimilarArtists(to: artist)
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard cell.imageView?.image == nil, let artist = viewModel?.artists[indexPath.row] else {
+            return
+        }
+
+        if artist.image == nil, let url = artist.imageUrl {
+            interactor.fetchImage(from: url, for: indexPath.row)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         UIView()
     }
@@ -54,5 +65,22 @@ extension SimilarArtistsViewController: SimilarArtistsDisplayProtocol {
     
     func displayFetchedArtists(with viewModel: SimilarArtistsScene.ViewModel) {
         self.viewModel = viewModel
+        tableView.reloadData()
+    }
+    
+    func updateImage(data: Data, at index: Int) {
+        guard let artists = viewModel?.artists, artists.indices.contains(index), let image = UIImage(data: data) else {
+            return
+        }
+        
+        // update view model
+        viewModel?.artists[index].image = image
+        
+        // update cell
+        guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) else {
+            return
+        }
+        cell.imageView?.image = image
+        cell.setNeedsLayout()
     }
 }

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 enum SimilarArtistsScene: AppScene {
     typealias Controller = SimilarArtistsViewController
@@ -33,7 +33,7 @@ enum SimilarArtistsScene: AppScene {
 
     struct ViewModel {
         let artistName: String
-        let artists: [ItemViewModel]
+        var artists: [ItemViewModel]
         
         init(response: Data.ArtistsList) {
             artistName = response.attr.artist
@@ -42,12 +42,15 @@ enum SimilarArtistsScene: AppScene {
     }
     
     struct ItemViewModel {
-        let mbid: String?
+        let mbid: String
         let name: String
-        
+        let imageUrl: String?
+        var image: UIImage?
+
         init(_ artist: Artist) {
-            mbid = artist.mbid
+            mbid = (artist.mbid ?? "").isEmpty ? "n/a" : artist.mbid!
             name = artist.name
+            imageUrl = artist.image[.medium] ?? artist.image[.large]
         }
     }
 }

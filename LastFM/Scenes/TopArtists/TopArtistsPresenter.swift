@@ -9,18 +9,15 @@ struct TopArtistsPresenter: TopArtistsPresentationProtocol {
     }
     
     func presentFetchedArtists(for data: Result<TopArtistsScene.Data, Error>) {
-        guard case let .success(success) = data else {
-            if case let .failure(error) = data {
-                onMain {
-                    self.controller?.displayError(error)
-                }
-            }
-            return
-        }
-        
-        let viewModel = TopArtistsScene.ViewModel(response: success.artists)
-        onMain {
+        relayResult(data) { (data) in
+            let viewModel = TopArtistsScene.ViewModel(response: data.artists)
             self.controller?.displayFetchedArtists(with: viewModel)
+        }
+    }
+    
+    func presentFetched(data: Result<Data, Error>, for index: Int) {
+        relayResult(data) {
+            self.controller?.updateImage(data: $0, at: index)
         }
     }
 }

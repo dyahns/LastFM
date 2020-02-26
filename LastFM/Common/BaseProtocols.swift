@@ -29,6 +29,20 @@ extension PresentationProtocol {
             action()
         }
     }
+    
+    func relayResult<T>(_ result: Result<T, Error>, onSuccess: @escaping (T) -> Void) {
+        switch result {
+        case .success(let success):
+            onMain {
+                onSuccess(success)
+            }
+
+        case .failure(let error):
+            onMain {
+                self.controller?.displayError(error)
+            }
+        }
+    }
 }
 
 // Router

@@ -47,9 +47,26 @@ struct LastFmService: RootServiceProtocol {
         }
         
         cache?.fetchSimilarArtists(request: request) { (result) in
-            semaphore.priorityHandler(success: (try? result.get()) != nil) {
+            semaphore.failoverHandler {
                 completion(result)
             }
         }
+    }
+    
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        cache?.fetchData(url: url, completion: { (result) in
+            guard let _ = try? result.get() else {
+                self.api.fetchData(url: url) { (result) in
+                    if let data = try? result.get() {
+                        self.cache?.cache(data: data, to: url)
+                    }
+
+                    completion(result)
+                }
+                return
+            }
+            
+            completion(result)
+        })
     }
 }
