@@ -15,6 +15,9 @@ class MockCache: ServiceProtocol & CacheWriter {
         cachedSimilarArtists = true
     }
     
+    func cache(data: Data, to url: String) {
+    }
+    
     func fetchTopArtists<T>(completion: @escaping (Result<T, Error>) -> Void) where T : Decodable, T : Encodable {
         queriedTopArtists = true
         completion(.failure(MockError.test))
@@ -25,4 +28,6 @@ class MockCache: ServiceProtocol & CacheWriter {
         completion(.failure(MockError.test))
     }
 
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    }
 }

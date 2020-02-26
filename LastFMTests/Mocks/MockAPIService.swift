@@ -25,4 +25,7 @@ class MockAPIService: ServiceProtocol {
             completion(.failure(MockError.test))
         }
     }
+    
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    }
 }

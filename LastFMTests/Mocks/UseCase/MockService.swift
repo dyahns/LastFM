@@ -2,6 +2,9 @@ import Foundation
 @testable import LastFM
 
 struct MockService: RootServiceProtocol {
+    func fetchData(url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    }
+    
     func fetchTopArtists<T>(completion: @escaping (Result<T, Error>) -> Void) where T : Decodable, T : Encodable {
     }
     
